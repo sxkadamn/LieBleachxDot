@@ -1,57 +1,71 @@
 package net.liebleachxdot.commands;
 
+import net.liebleachxdot.api.BaseCommand;
 import net.liebleachxdot.game.Arena;
 import net.liebleachxdot.gui.create.ArenasGui;
-import net.liebleachxdot.tools.Utility;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import net.liebleachxdot.tools.Utility;;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class UserCommands implements CommandExecutor {
+public class UserCommands extends BaseCommand {
 
+    public UserCommands(String name, String... aliases) {
+        super(name, aliases);
+    }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (!(sender instanceof Player)){
-            Utility.sendMessage(sender, "Только игрок может выполнять эту команду!", true);
-            return true;
+    public void execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            Utility.sendMessage(sender, "Only players can execute this command!", true);
+            return;
         }
 
         Player player = (Player) sender;
-        if (args[0].equalsIgnoreCase("join")){
-            if (args.length == 1) {
-                Utility.sendMessage(player, "Укажи имя арены", true);
-                return true;
-            }
 
-            Arena arena = Arena.get(args[1]);
-            if (arena == null) {
-                Utility.sendMessage(player, "Такой арены не существует.", true);
-                return true;
-            }
-
-            if (!arena.join(player)) Utility.sendMessage(player, "Невозможно присоединиться.", true);
-
-            return true;
-        }
-        else if (args[0].equalsIgnoreCase("leave")){
-            Arena arena = Arena.get(player);
-            if (arena == null){
-                Utility.sendMessage(player, "Ты не на арене.", true);
-                return true;
-            }
-
-            arena.leave(player);
-            Utility.sendMessage(player, "Вы покинули арену.", true);
-            return true;
-        }
-        else if (args[0].equalsIgnoreCase("gui")) {
-            ArenasGui arenasGui = new ArenasGui();
-            arenasGui.arenaGui(player);
+        if (args.length == 0) {
+            Utility.sendMessage(player, "Please provide a valid command!", true);
+            return;
         }
 
-        return false;
+        String subCommand = args[0].toLowerCase();
+
+        switch (subCommand) {
+            case "join":
+                if (args.length == 1) {
+                    Utility.sendMessage(player, "Specify the arena name", true);
+                    return;
+                }
+
+                Arena joinArena = Arena.get(args[1]);
+                if (joinArena == null) {
+                    Utility.sendMessage(player, "Arena does not exist.", true);
+                    return;
+                }
+
+                if (!joinArena.join(player)) {
+                    Utility.sendMessage(player, "Unable to join.", true);
+                }
+                break;
+
+            case "leave":
+                Arena leaveArena = Arena.get(player);
+                if (leaveArena == null) {
+                    Utility.sendMessage(player, "You are not in an arena.", true);
+                    return;
+                }
+
+                leaveArena.leave(player);
+                Utility.sendMessage(player, "You have left the arena.", true);
+                break;
+
+            case "gui":
+                ArenasGui arenasGui = new ArenasGui();
+                arenasGui.arenaGui(player);
+                break;
+
+            default:
+                Utility.sendMessage(player, "Unknown command. Please use a valid command!", true);
+                break;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package net.liebleachxdot;
 
+import net.liebleachxdot.api.BaseCommand;
 import net.liebleachxdot.commands.AdminCommands;
 import net.liebleachxdot.commands.UserCommands;
 import net.liebleachxdot.game.classes.IchigoClass;
@@ -25,8 +26,8 @@ public final class LieBleachxDot extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
 
-        getCommand("arena").setExecutor(new AdminCommands());
-        getCommand("bleach").setExecutor(new UserCommands());
+        BaseCommand.register(this, new AdminCommands("arena", "own plugin"));
+        BaseCommand.register(this, new UserCommands("bleach", "users useeeeee"));
 
 
         checkPlugin("PlaceholderAPI");

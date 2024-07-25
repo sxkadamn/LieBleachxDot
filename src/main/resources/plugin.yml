@@ -5,8 +5,5 @@ api-version: '1.16'
 softdepend:
   - TAB
   - PlaceHolderAPI
-commands:
-  arena:
-    description: bleach
-  bleach:
-    description: bleach
+author: _a_k_u_l_k_a_
+description: s lyubovyoo tg@if_wannalie
