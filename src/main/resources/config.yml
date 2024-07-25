@@ -1,0 +1,17 @@
+arena:
+  game:
+    scoreboard:
+      title: "&6Счётчик очков"
+      lines:
+        - ''
+        - '&cГотей 13 - &4%bleach_gotei_scores% &7/ &b&%bleach_max_scores%'
+        - ''
+        - '&9Эспада - &9%bleach_espada_scores%&7/ &b&%bleach_max_scores%'
+  gui:
+    lore:
+      - ''
+      - '&6----'
+      - '&cГотей 13 - &4%gotei_team &7/ &4%gotei_max'
+      - '&6----'
+      - '&9Эспада - &9%espada_team &7/ &9%espada_max'
+      - ''

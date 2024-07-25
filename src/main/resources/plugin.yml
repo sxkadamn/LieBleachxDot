@@ -1,0 +1,12 @@
+name: lieBleachxDot
+version: '${project.version}'
+main: net.liebleachxdot.LieBleachxDot
+api-version: '1.16'
+softdepend:
+  - TAB
+  - PlaceHolderAPI
+commands:
+  arena:
+    description: bleach
+  bleach:
+    description: bleach
